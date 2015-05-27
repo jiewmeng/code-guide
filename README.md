@@ -6,52 +6,16 @@ Adapted from [Google HTML/CSS Guide](https://google-styleguide.googlecode.com/sv
 
 **[EditorConfig](http://editorconfig.org/)** is very useful to ensure the entire team uses consistent coding styles/format. eg. soft or hard tabs. The size of tabs etc.
 
-(sample `.editorconfig`)
-
-```
-root = true
-
-[*]
-charset = utf-8
-end_of_line = lf
-insert_final_newline = true
-indent_style = tab
-indent_size = 2
-trim_trailing_whitespace = true
-```
+[Sample `.editorconfig`](./.editorconfig)
 
 The following can validate HTML/CSS respectively but maybe less useful since frameworks/transcompilers tend to be used instead.
 
 - [HTMLHint](https://github.com/yaniswang/HTMLHint) - linter for HTML5
 - [CSSLint](https://github.com/CSSLint/csslint) - linter for CSS
 
-(Sample `.htmlhintrc`)
+[Sample `.htmlhintrc`](./.htmlhintrc)
 
-```json
-{
-	"tagname-lowercase": true,
-	"attr-lowercase": true,
-	"attr-value-double-quotes": true,
-	"attr-value-not-empty": false,
-	"attr-no-duplication": true,
-	"doctype-first": true,
-	"tag-pair": true,
-	"tag-self-close": true,
-	"spec-char-escape": true,
-	"id-unique": true,
-	"src-not-empty": true,
-
-	"head-script-disabled": false,
-
-	"img-alt-require": true,
-
-	"doctype-html5": true,
-	"id-class-value": "dash",
-	"style-disabled": true,
-	"space-tab-mixed-disabled": true,
-	"attr-unsafe-chars": true
-}
-```
+[Sample `.csslintrc`](./.csslintrc)
 
 ## General
 

@@ -253,6 +253,106 @@ Whenever possible, avoid superfluous parent elements when writing HTML. Many tim
 
 ## CSS
 
+### SMACSS
+
+Use [SMACSS](https://smacss.com/book/) to organize CSS. As suggested by SMACSS, styles are categorized into 5 types:
+
+- Base
+- Layout
+- Module
+- State
+- Theme
+
+#### Base
+
+Mainly refers to element/tag selectors for example: `body`, `p` etc. Could be thought as a default style for a type of element.
+
+#### Layout
+
+Layout rules divides page into sections housing modules and typically defines width, height, positioning, etc of elements. Prefix layout classes with `l-` for example `.l-flipped`
+
+```css
+#header, #article, #footer {
+    width: 960px;
+    margin: auto;
+}
+
+#article {
+    border: solid #CCC;
+    border-width: 1px 0 0;
+}
+
+.l-flipped #article {
+    float: right;
+}
+
+.l-flipped #sidebar {
+    float: left;
+}
+```
+
+#### Module
+
+A module refers to a reusable component on a page. For example, modals, dropdowns etc.
+
+```
+.modal { }
+
+/* avoid element selectors */
+.modal div {  }
+
+/* unless you really want all such elements to have that style everytime its used in the module */
+.modal p {  }
+
+/* use selectors with semantics */
+.modal-header { }
+```
+
+##### Subclassing modules
+
+Modules can be subclassed when we want to apply different styles to them depending on the context.
+
+```css
+/* default styles for all pods */
+.pod {  }
+
+/* styles for "headless" pod */
+.pop-headless {  }
+```
+
+Usage in HTML
+
+```html
+<div class="pod pop-headless">...</div>
+```
+
+#### States
+
+For styles related to states of components. For example `is-error`, `is-success` etc. Prefix with `is-`
+
+```
+.is-error { color: red; }
+```
+
+#### Theme
+
+Theme style affects the look and feel of the site and typically include styles like `color`, `background`, `font-family` etc
+
+```css
+body {
+    background: white;
+    color: #333;
+    font-family: helvatica, arial, sans-serif;
+}
+
+.modal-header {
+    padding: 10px;
+    color: orange;
+    font-weight: bold;
+    font-style: italic;
+}
+```
+
 ### ID and class names
 
 Use lower case with dashes separating words. Use meaningful names eg. `.btn` instead of `.b`

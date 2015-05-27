@@ -27,6 +27,24 @@ The following can validate HTML/CSS respectively but maybe less useful since fra
 
 ## General
 
+### Don't omit optional trailing slash or tags
+
+```html
+<!-- not recommended -->
+<br>
+
+<!-- recommended -->
+<br />
+
+<!-- not recommended -->
+<li>testing 1
+<li>testing 2
+
+<!-- recommended -->
+<li>testing 1</li>
+<li>testing 2</li>
+```
+
 ### Protocol
 
 Omit the protocol portion (http:, https:) from URLs pointing to images and other media files, style sheets, and scripts unless the respective files are not available over both protocols.
@@ -197,7 +215,58 @@ Also, indent them if they are child elements of a block, list, or table element.
 </table>
 ```
 
+### Language attribute
+
+From the HTML5 spec:
+
+> Authors are encouraged to specify a lang attribute on the root html element, giving the document's language. This aids speech synthesis tools to determine what pronunciations to use, translation tools to determine what rules to use, and so forth.
+
+
+```html
+<html lang="en-us">
+```
+
+### IE compatibility mode
+
+Internet Explorer supports the use of a document compatibility `<meta>` tag to specify what version of IE the page should be rendered as. Unless circumstances require otherwise, it's most useful to instruct IE to use the latest supported mode with edge mode.
+
+### Boolean attributes
+
+A boolean attribute is one that needs no declared value. XHTML required you to declare a value, but HTML5 has no such requirement.
+
+For further reading, consult the WhatWG section on boolean attributes:
+
+> The presence of a boolean attribute on an element represents the true value, and the absence of the attribute represents the false value.
+
+If you must include the attribute's value, and you don't need to, follow this WhatWG guideline:
+
+> If the attribute is present, its value must either be the empty string or [...] the attribute's canonical name, with no leading or trailing whitespace.
+
+In short, don't add a value.
+
+### Reducing markup
+
+Whenever possible, avoid superfluous parent elements when writing HTML. Many times this requires iteration and refactoring, but produces less HTML. Take the following example:
+
+```html
+<!-- Not so great -->
+<span class="avatar">
+  <img src="...">
+</span>
+
+<!-- Better -->
+<img class="avatar" src="...">
+```
+
 ## CSS
+
+### ID and class names
+
+Use lower case with dashes separating words. Use meaningful names eg. `.btn` instead of `.b`
+
+```css
+.btn-success { }
+```
 
 ### Valid CSS
 
@@ -208,22 +277,6 @@ Unless dealing with CSS validator bugs or requiring proprietary syntax, use vali
 Use tools such as the W3C CSS validator to test.
 
 Using valid CSS is a measurable baseline quality attribute that allows to spot CSS code that may not have any effect and can be removed, and that ensures proper CSS usage.
-
-## ID and Class Name Delimiters
-
-Separate words in ID and class names by a hyphen.
-
-```css
-/* Not recommended: does not separate the words “demo” and “image” */
-.demoimage {}
-
-/* Not recommended: uses underscore instead of hyphen */
-.error_status {}
-
-/* Recommended */
-#video-id {}
-.ads-sample {}
-```
 
 ### Hacks
 
@@ -347,5 +400,151 @@ Use double quotation marks for attribute selectors and property values.
 ```css
 html {
   font-family: "open sans", arial, sans-serif;
+}
+```
+
+### 1 declaration per line
+
+Each declaration should appear on its own line for more accurate error reporting.
+
+```css
+/* not recommended */
+body {
+    background: #fff; color: #000;
+}
+
+/* recommended */
+body {
+    background: #fff;
+    color: #000;
+}
+```
+
+### Space after commas
+
+Comma-separated property values should include a space after each comma (e.g., box-shadow).
+
+```
+/* not recommended */
+box-shadow: box-shadow:0px 1px 2px #CCC,inset 0 1px 0 #FFFFFF;
+
+/* recommended */
+box-shadow: box-shadow:0px 1px 2px #CCC, inset 0 1px 0 #FFFFFF;
+```
+
+### Lowercase all hex values
+
+```
+// not recommended
+#FFF
+
+// recommended
+#fff
+```
+
+### Use shorthand hex values where available
+
+```
+// not recommended
+#ffffff
+
+// recommended
+#fff
+```
+
+### Quote attribute values in selectors
+
+```css
+/* not recommended */
+input[type=text] { }
+
+/* recommended */
+input[type="text"] { }
+```
+
+### 0 and units
+
+Avoid specifying units for zero values, e.g., margin: 0; instead of margin: 0px;.
+
+```css
+/* not recommended */
+font-size: 0px;
+
+/* recommended */
+font-size: 0;
+```
+
+### Don't use `@import`
+
+Compared to `<link>`s, `@import` is slower, adds extra page requests, and can cause other unforeseen problems. Avoid them and instead opt for an alternate approach:
+
+Use concatenation or multiple `<link>` elements
+
+### Media query placement
+
+Place media queries as close to their relevant rule sets whenever possible. Don't bundle them all in a separate stylesheet or at the end of the document. Doing so only makes it easier for folks to miss them in the future. Here's a typical setup.
+
+```css
+.element { ... }
+.element-avatar { ... }
+.element-selected { ... }
+
+@media (min-width: 480px) {
+  .element { ...}
+  .element-avatar { ... }
+  .element-selected { ... }
+}
+```
+
+### Shorthand notation
+
+Strive to limit use of shorthand declarations to instances where you must explicitly set all the available values. Common overused shorthand properties include:
+
+- padding
+- margin
+- font
+- background
+- border
+- border-radius
+
+Often times we don't need to set all the values a shorthand property represents. For example, HTML headings only set top and bottom margin, so when necessary, only override those two values. Excessive use of shorthand properties often leads to sloppier code with unnecessary overrides and unintended side effects.
+
+### Nesting in Less and Sass
+
+Avoid unnecessary nesting. Just because you can nest, doesn't mean you always should. Consider nesting only if you must scope styles to a parent and if there are multiple elements to be nested.
+
+### Operators in Less and Sass
+
+For improved readability, wrap all math operations in parentheses with a single space between values, variables, and operators.
+
+```
+// Bad example
+.element {
+  margin: 10px 0 @variable*2 10px;
+}
+
+// Good example
+.element {
+  margin: 10px 0 (@variable * 2) 10px;
+}
+```
+
+### Comments
+
+Code is written and maintained by people. Ensure your code is descriptive, well commented, and approachable by others. Great code comments convey context or purpose. Do not simply reiterate a component or class name.
+
+Be sure to write in complete sentences for larger comments and succinct phrases for general notes.
+
+```css
+/* Bad example */
+/* Modal header */
+.modal-header {
+  ...
+}
+
+/* Good example */
+/* Wrapping element for .modal-title and .modal-close */
+.modal-header {
+  ...
 }
 ```

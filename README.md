@@ -353,6 +353,31 @@ body {
 }
 ```
 
+#### SMACSS Concepts
+
+##### Depth of applicability
+
+Higher depth tends to mean higher dependency to a particular HTML structure
+
+```css
+/* not so great: imagine what happens when instead of using h2 we want to use a h1 */
+body .module header h2 .title {  }
+
+/* better */
+.module .title { }
+```
+
+##### How CSS is evaluated
+
+###### From right to left
+
+- So right-most selector should not refer to too many elements on the page. For example, `.module span` can be very slow if there are alot of spans on the page
+- Single selector is faster than a string of selectors `.list-link` vs `#nav ul ul ul li .list-link`
+
+###### On element creation
+
+As browser parses HTML it evaluates styles for the element.
+
 ### ID and class names
 
 Use lower case with dashes separating words. Use meaningful names eg. `.btn` instead of `.b`

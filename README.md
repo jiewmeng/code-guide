@@ -154,6 +154,7 @@ Specifying type attributes in these contexts is not necessary as HTML5 implies t
   type="text/css">
 <!-- Recommended -->
 <link rel="stylesheet" href="//www.google.com/css/maia.css">
+
 <!-- Not recommended -->
 <script src="//www.google.com/js/gweb/analytics/autotrack.js"
   type="text/javascript"></script>
@@ -197,3 +198,154 @@ Also, indent them if they are child elements of a block, list, or table element.
 ```
 
 ## CSS
+
+### Valid CSS
+
+Use valid CSS where possible.
+
+Unless dealing with CSS validator bugs or requiring proprietary syntax, use valid CSS code.
+
+Use tools such as the W3C CSS validator to test.
+
+Using valid CSS is a measurable baseline quality attribute that allows to spot CSS code that may not have any effect and can be removed, and that ensures proper CSS usage.
+
+## ID and Class Name Delimiters
+
+Separate words in ID and class names by a hyphen.
+
+```css
+/* Not recommended: does not separate the words “demo” and “image” */
+.demoimage {}
+
+/* Not recommended: uses underscore instead of hyphen */
+.error_status {}
+
+/* Recommended */
+#video-id {}
+.ads-sample {}
+```
+
+### Hacks
+
+Avoid user agent detection as well as CSS “hacks”—try a different approach first.
+
+It’s tempting to address styling differences over user agent detection or special CSS filters, workarounds, and hacks. Both approaches should be considered last resort in order to achieve and maintain an efficient and manageable code base. Put another way, giving detection and hacks a free pass will hurt projects in the long run as projects tend to take the way of least resistance. That is, allowing and making it easy to use detection and hacks means using detection and hacks more frequently—and more frequently is too frequently.
+
+### Indentation
+
+Indent all block content with more than one line.
+
+```css
+@media screen, projection {
+
+  html {
+    background: #fff;
+    color: #444;
+  }
+
+  h1 { font-size: 10px; }
+
+}
+```
+
+### Semicolons
+
+Use a semicolon after every declaration.
+
+```css
+/* Not recommended */
+.test {
+  display: block;
+  height: 100px
+}
+
+/* Recommended */
+.test {
+  display: block;
+  height: 100px;
+}
+```
+
+### Property Name Stops
+
+Use a space after a property name’s colon.
+
+```css
+/* Not recommended */
+h3 {
+  font-weight:bold;
+}
+
+/* Recommended */
+h3 {
+  font-weight: bold;
+}
+```
+
+### Declaration Block Separation
+
+Use a space between the last selector and the declaration block.
+
+The opening brace should be on the same line as the last selector in a given rule.
+
+```css
+/* Not recommended: missing space */
+#video{
+  margin-top: 1em;
+}
+
+/* Not recommended: unnecessary line break */
+#video
+{
+  margin-top: 1em;
+}
+
+/* Recommended */
+#video {
+  margin-top: 1em;
+}
+```
+
+### Selector and Declaration Separation
+
+Separate selectors and declarations by new lines.
+
+```css
+/* Not recommended */
+a:focus, a:active {
+  position: relative; top: 1px;
+}
+
+/* Recommended */
+h1,
+h2,
+h3 {
+  font-weight: normal;
+  line-height: 1.2;
+}
+```
+
+### Rule Separation
+
+Separate rules by new lines.
+
+```css
+html {
+  background: #fff;
+}
+
+body {
+  margin: auto;
+  width: 50%;
+}
+```
+
+### CSS Quotation Marks
+
+Use double quotation marks for attribute selectors and property values.
+
+```css
+html {
+  font-family: "open sans", arial, sans-serif;
+}
+```

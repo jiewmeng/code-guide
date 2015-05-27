@@ -27,24 +27,6 @@ The following can validate HTML/CSS respectively but maybe less useful since fra
 
 ## General
 
-### Don't omit optional trailing slash or tags
-
-```html
-<!-- not recommended -->
-<br>
-
-<!-- recommended -->
-<br />
-
-<!-- not recommended -->
-<li>testing 1
-<li>testing 2
-
-<!-- recommended -->
-<li>testing 1</li>
-<li>testing 2</li>
-```
-
 ### Protocol
 
 Omit the protocol portion (http:, https:) from URLs pointing to images and other media files, style sheets, and scripts unless the respective files are not available over both protocols.
@@ -75,16 +57,12 @@ Use tabs (enforced via EditorConfig)
 
 ## HTML
 
-### Capitalization
+### Doctype
 
-Use lower case tag and attribute names
+Use HTML5
 
 ```html
-<!-- Recommended -->
-<a href="something.png">Something</a>
-
-<!-- Not recommended -->
-<A HREF="something.png">Something</A>
+<!DOCTYPE html>
 ```
 
 ### Encoding
@@ -107,13 +85,65 @@ Use double quotes
 <a href='something.png'>Something</a>
 ```
 
-### Doctype
-
-Use HTML5
+### Don't omit optional trailing slash or tags
 
 ```html
-<!DOCTYPE html>
+<!-- not recommended -->
+<br>
+
+<!-- recommended -->
+<br />
+
+<!-- not recommended -->
+<li>testing 1
+<li>testing 2
+
+<!-- recommended -->
+<li>testing 1</li>
+<li>testing 2</li>
 ```
+
+### Capitalization
+
+Use lower case tag and attribute names
+
+```html
+<!-- Recommended -->
+<a href="something.png">Something</a>
+
+<!-- Not recommended -->
+<A HREF="something.png">Something</A>
+```
+
+### Language attribute
+
+From the HTML5 spec:
+
+> Authors are encouraged to specify a lang attribute on the root html element, giving the document's language. This aids speech synthesis tools to determine what pronunciations to use, translation tools to determine what rules to use, and so forth.
+
+
+```html
+<html lang="en-us">
+```
+
+### IE compatibility mode
+
+Internet Explorer supports the use of a document compatibility `<meta>` tag to specify what version of IE the page should be rendered as. Unless circumstances require otherwise, it's most useful to instruct IE to use the latest supported mode with edge mode.
+
+### Boolean attributes
+
+A boolean attribute is one that needs no declared value. XHTML required you to declare a value, but HTML5 has no such requirement.
+
+For further reading, consult the WhatWG section on boolean attributes:
+
+> The presence of a boolean attribute on an element represents the true value, and the absence of the attribute represents the false value.
+
+If you must include the attribute's value, and you don't need to, follow this WhatWG guideline:
+
+> If the attribute is present, its value must either be the empty string or [...] the attribute's canonical name, with no leading or trailing whitespace.
+
+In short, don't add a value.
+
 
 ### Semantics
 
@@ -215,35 +245,6 @@ Also, indent them if they are child elements of a block, list, or table element.
 </table>
 ```
 
-### Language attribute
-
-From the HTML5 spec:
-
-> Authors are encouraged to specify a lang attribute on the root html element, giving the document's language. This aids speech synthesis tools to determine what pronunciations to use, translation tools to determine what rules to use, and so forth.
-
-
-```html
-<html lang="en-us">
-```
-
-### IE compatibility mode
-
-Internet Explorer supports the use of a document compatibility `<meta>` tag to specify what version of IE the page should be rendered as. Unless circumstances require otherwise, it's most useful to instruct IE to use the latest supported mode with edge mode.
-
-### Boolean attributes
-
-A boolean attribute is one that needs no declared value. XHTML required you to declare a value, but HTML5 has no such requirement.
-
-For further reading, consult the WhatWG section on boolean attributes:
-
-> The presence of a boolean attribute on an element represents the true value, and the absence of the attribute represents the false value.
-
-If you must include the attribute's value, and you don't need to, follow this WhatWG guideline:
-
-> If the attribute is present, its value must either be the empty string or [...] the attribute's canonical name, with no leading or trailing whitespace.
-
-In short, don't add a value.
-
 ### Reducing markup
 
 Whenever possible, avoid superfluous parent elements when writing HTML. Many times this requires iteration and refactoring, but produces less HTML. Take the following example:
@@ -267,22 +268,6 @@ Use lower case with dashes separating words. Use meaningful names eg. `.btn` ins
 ```css
 .btn-success { }
 ```
-
-### Valid CSS
-
-Use valid CSS where possible.
-
-Unless dealing with CSS validator bugs or requiring proprietary syntax, use valid CSS code.
-
-Use tools such as the W3C CSS validator to test.
-
-Using valid CSS is a measurable baseline quality attribute that allows to spot CSS code that may not have any effect and can be removed, and that ensures proper CSS usage.
-
-### Hacks
-
-Avoid user agent detection as well as CSS “hacks”—try a different approach first.
-
-It’s tempting to address styling differences over user agent detection or special CSS filters, workarounds, and hacks. Both approaches should be considered last resort in order to achieve and maintain an efficient and manageable code base. Put another way, giving detection and hacks a free pass will hurt projects in the long run as projects tend to take the way of least resistance. That is, allowing and making it easy to use detection and hacks means using detection and hacks more frequently—and more frequently is too frequently.
 
 ### Indentation
 
@@ -380,7 +365,7 @@ h3 {
 
 ### Rule Separation
 
-Separate rules by new lines.
+Separate rules by new lines for better error reporting
 
 ```css
 html {
@@ -391,6 +376,9 @@ body {
   margin: auto;
   width: 50%;
 }
+
+/* except for styles with only one rule */
+h1 { font-size: 12px; }
 ```
 
 ### CSS Quotation Marks
@@ -400,23 +388,6 @@ Use double quotation marks for attribute selectors and property values.
 ```css
 html {
   font-family: "open sans", arial, sans-serif;
-}
-```
-
-### 1 declaration per line
-
-Each declaration should appear on its own line for more accurate error reporting.
-
-```css
-/* not recommended */
-body {
-    background: #fff; color: #000;
-}
-
-/* recommended */
-body {
-    background: #fff;
-    color: #000;
 }
 ```
 
@@ -548,3 +519,19 @@ Be sure to write in complete sentences for larger comments and succinct phrases 
   ...
 }
 ```
+
+### Valid CSS
+
+Use valid CSS where possible.
+
+Unless dealing with CSS validator bugs or requiring proprietary syntax, use valid CSS code.
+
+Use tools such as the W3C CSS validator to test.
+
+Using valid CSS is a measurable baseline quality attribute that allows to spot CSS code that may not have any effect and can be removed, and that ensures proper CSS usage.
+
+### Hacks
+
+Avoid user agent detection as well as CSS “hacks”—try a different approach first.
+
+It’s tempting to address styling differences over user agent detection or special CSS filters, workarounds, and hacks. Both approaches should be considered last resort in order to achieve and maintain an efficient and manageable code base. Put another way, giving detection and hacks a free pass will hurt projects in the long run as projects tend to take the way of least resistance. That is, allowing and making it easy to use detection and hacks means using detection and hacks more frequently—and more frequently is too frequently.

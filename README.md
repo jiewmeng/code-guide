@@ -25,6 +25,34 @@ The following can validate HTML/CSS respectively but maybe less useful since fra
 - [HTMLHint](https://github.com/yaniswang/HTMLHint) - linter for HTML5
 - [CSSLint](https://github.com/CSSLint/csslint) - linter for CSS
 
+(Sample `.htmlhintrc`)
+
+```json
+{
+	"tagname-lowercase": true,
+	"attr-lowercase": true,
+	"attr-value-double-quotes": true,
+	"attr-value-not-empty": false,
+	"attr-no-duplication": true,
+	"doctype-first": true,
+	"tag-pair": true,
+	"tag-self-close": true,
+	"spec-char-escape": true,
+	"id-unique": true,
+	"src-not-empty": true,
+
+	"head-script-disabled": false,
+
+	"img-alt-require": true,
+
+	"doctype-html5": true,
+	"id-class-value": "dash",
+	"style-disabled": true,
+	"space-tab-mixed-disabled": true,
+	"attr-unsafe-chars": true
+}
+```
+
 ## General
 
 ### Protocol
